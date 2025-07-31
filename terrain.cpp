@@ -9,6 +9,10 @@
 #include <ctime>
 using namespace std;
 
+terrain::terrain() {
+    graphIndex = 0;
+}
+
 void terrain::populateGraph(vector<vector<int>> grid){
     int VertexNum;
     for(int i = 0; i < grid.size(); i++){
@@ -18,13 +22,18 @@ void terrain::populateGraph(vector<vector<int>> grid){
 
                 }
             }
-
         }
     }
 }
 
-void populateHelper(int x, int y, vector<vector<int>>){
-
+void terrain::populateVertex(int x, int y, vector<vector<int>>){
+    pair<int, int> myPair(x,y);
+    if(adjacencyList.find(reverseMapper[myPair]) == adjacencyList.end()){
+        mapper[graphIndex] = myPair;
+        reverseMapper[myPair] = graphIndex;
+        adjacencyList[graphIndex] = {};
+        graphIndex++;
+    }
 }
 
 

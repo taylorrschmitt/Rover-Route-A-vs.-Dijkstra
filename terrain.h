@@ -1,4 +1,5 @@
 #include<unordered_map>
+#include<map>
 #include<utility>
 #include<vector>
 #include<random>
@@ -10,13 +11,14 @@ using namespace std;
 
 
 class terrain {
+    int graphIndex;
     unordered_map<int, vector<int>> adjacencyList;
-    unordered_map<int, pair<int, int>> mapper;
-    unordered_map<pair<int,int>, int> reverseMapper;
+    map<int, pair<int, int>> mapper;
+    map<pair<int,int>, int> reverseMapper;
 public:
     terrain();
     void populateGraph(vector<vector<int>> grid);
-    void populateHelper(int x, int y, vector<vector<int>>);
+    void populateVertex(int x, int y, vector<vector<int>>);
 
     void printGraph();
 
