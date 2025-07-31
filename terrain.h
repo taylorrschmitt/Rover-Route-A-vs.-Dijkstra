@@ -16,7 +16,8 @@ class terrain {
 public:
     terrain();
     void populateGraph(vector<vector<int>> grid);
-
+    void printGraph();
+    vector<vector<int>> createNodes(int rows, int cols);
 };
 
 

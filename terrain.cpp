@@ -3,6 +3,11 @@
 //
 
 #include "terrain.h"
+#include <iostream>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
 
 void terrain::populateGraph(vector<vector<int>> grid){
     int VertexNum;
@@ -16,4 +21,9 @@ void terrain::populateGraph(vector<vector<int>> grid){
 
         }
     }
+}
+
+vector<vector<int>> terrain::createNodes(int rows, int cols){
+    vector<vector<int>> grid;
+    srand(time(0));
 }
