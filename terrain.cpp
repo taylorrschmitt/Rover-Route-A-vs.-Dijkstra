@@ -23,6 +23,13 @@ void terrain::populateGraph(vector<vector<int>> grid){
     }
 }
 
+void populateHelper(int x, int y, vector<vector<int>>){
+
+}
+
+
+
+
 vector<vector<int>> terrain::createNodes(int rows, int cols){
     vector<vector<int>> grid;
     srand(time(0));
