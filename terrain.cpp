@@ -1,7 +1,7 @@
 //
 // Created by Evan Schroeder on 7/31/25.
 //
-//when creating a grid to test, if 100,000 nodes is wanted input 317 rows and 317 columns
+//when creating a grid to test, if 100,000 nodes is wanted input, 317 rows and 317 columns
 #include "terrain.h"
 #include <iostream>
 #include <vector>
@@ -41,12 +41,14 @@ void terrain::populateVertex(int x, int y, vector<vector<int>>){
 
 vector<vector<int>> terrain::createNodes(int rows, int cols){
     vector<vector<int>> grid;
+
     srand(time(0));
 
     //creating 2d vector of nodes with values ranging from 0-5 for type of obstacle
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
-            grid.push_back(vector<int>(rand() % 6));
+            int value = rand() % 6;
+            grid[i][j] = value;
         }
     }
 
