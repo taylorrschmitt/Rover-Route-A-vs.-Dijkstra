@@ -1,6 +1,8 @@
 #include<unordered_map>
 #include<utility>
 #include<vector>
+#include<random>
+#include<set>
 
 using namespace std;
 #ifndef PATHFINDING_PERFORMANCE_ANALYSIS_TERRAIN_H
@@ -13,7 +15,7 @@ class terrain {
     unordered_map<pair<int,int>, int> reverseMapper;
 public:
     terrain();
-    void populateGraph(vector<vector<int>>);
+    void populateGraph(vector<vector<int>> grid);
 
 };
 
