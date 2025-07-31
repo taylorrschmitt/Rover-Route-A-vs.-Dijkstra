@@ -1,7 +1,7 @@
 //
 // Created by Evan Schroeder on 7/31/25.
 //
-
+//when creating a grid to test, if 100,000 nodes is wanted input 317 rows and 317 columns
 #include "terrain.h"
 #include <iostream>
 #include <vector>
