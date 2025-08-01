@@ -39,7 +39,7 @@ void terrain::populateGraph(vector<vector<int>> grid){
                 to = {j + 1, i};
                 populateHelper(from, to, grid, 1);
             }
-            if(j != grid.at(i).size() && i != grid.size() - 1) {
+            if(j != grid.at(i).size() - 1 && i != grid.size() - 1) {
                 //bottom right
                 to = {j + 1, i + 1};
                 populateHelper(from, to, grid, 1.41);
@@ -84,7 +84,7 @@ void terrain::populateVertex(int x, int y, vector<vector<int>>& grid){
     //Check if the pair we are looking at is in our graph, if not then add it
 
     pair<int, int> myPair(x,y);
-    if(adjacencyList.find(reverseMapper[myPair]) == adjacencyList.end()){
+    if(reverseMapper.find(myPair) == reverseMapper.end()){
         mapper[graphIndex] = myPair;
         reverseMapper[myPair] = graphIndex;
         adjacencyList[graphIndex] = {};
@@ -119,9 +119,13 @@ vector<vector<int>> terrain::createNodes(int rows, int cols){
 
 void terrain::printAdjacencyList(){
     for(auto it = adjacencyList.begin(); it != adjacencyList.end(); it++) {
-        cout << it->first << " -> ";
+        pair<int, int> coordinateFrom = mapper[it->first];
+        cout << "(" << coordinateFrom.first << ", " << coordinateFrom.second << ")  ->";
         for (int i = 0; i < it->second.size(); i++) {
-            cout << it->second.at(i).first << " " << it->second.at(i).second << ", ";
+            int toIndex = it->second.at(i).first;
+            float weight = it->second.at(i).second;
+            pair<int, int> coordinateTo = mapper[toIndex];
+            cout << "(" << coordinateTo.first << ", " << coordinateTo.second << ") weight: " << weight << ", ";
         }
         cout << endl;
     }

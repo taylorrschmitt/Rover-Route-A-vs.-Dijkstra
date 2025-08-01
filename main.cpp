@@ -15,6 +15,8 @@ int main() {
 
     terrain graph;
     graph.createNodes(rows, columns);
+    cout << endl;
+    graph.printAdjacencyList();
 
     return 0;
 }
