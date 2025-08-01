@@ -12,7 +12,7 @@ using namespace std;
 
 class terrain {
     int graphIndex;
-    unordered_map<int, vector<pair<int,int>>> adjacencyList;
+    unordered_map<int, vector<pair<int,float>>> adjacencyList;
     map<int, pair<int, int>> mapper;
     map<pair<int,int>, int> reverseMapper;
 public:
