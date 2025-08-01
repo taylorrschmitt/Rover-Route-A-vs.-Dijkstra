@@ -117,6 +117,7 @@ vector<vector<int>> terrain::createNodes(int rows, int cols){
 }
 
 void terrain::printAdjacencyList(){
+
     for(auto it = adjacencyList.begin(); it != adjacencyList.end(); it++) {
         cout << it->first << " -> ";
         for (int i = 0; i < it->second.size(); i++) {
