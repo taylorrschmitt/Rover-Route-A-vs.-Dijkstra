@@ -83,9 +83,6 @@ void terrain::populateVertex(int x, int y, vector<vector<int>>& grid){
     }
 }
 
-
-
-
 vector<vector<int>> terrain::createNodes(int rows, int cols){
     vector<vector<int>> grid;
 
@@ -108,4 +105,14 @@ vector<vector<int>> terrain::createNodes(int rows, int cols){
     }
 
     return grid;
+}
+
+void terrain::printAdjacencyList(){
+    for(auto it = adjacencyList.begin(); it != adjacencyList.end(); it++) {
+        cout << it->first << " -> ";
+        for (int i = 0; i < it->second.size(); i++) {
+            cout << it->second.at(i).first << " " << it->second.at(i).second << ", ";
+        }
+        cout << endl;
+    }
 }

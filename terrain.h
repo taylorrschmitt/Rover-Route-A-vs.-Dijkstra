@@ -21,6 +21,8 @@ public:
     void populateHelper(pair<int, int> from, pair<int, int> to, vector<vector<int>>& grid, float factor);
     void populateVertex(int x, int y, vector<vector<int>>& grid);
 
+    void printAdjacencyList();
+
     vector<vector<int>> createNodes(int rows, int cols);
 };
 
