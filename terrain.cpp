@@ -87,8 +87,7 @@ void terrain::populateVertex(int x, int y, vector<vector<int>>& grid){
 
 
 vector<vector<int>> terrain::createNodes(int rows, int cols){
-    vector<vector<int>> grid;
-
+    vector<vector<int>> grid(rows, vector<int> (cols));
     srand(time(0));
 
     //creating 2d vector of nodes with values ranging from 0-5 for type of obstacle
@@ -106,6 +105,8 @@ vector<vector<int>> terrain::createNodes(int rows, int cols){
         }
         cout << endl;
     }
+
+    populateGraph(grid);
 
     return grid;
 }
