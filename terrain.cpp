@@ -14,6 +14,9 @@ terrain::terrain() {
 }
 
 void terrain::populateGraph(vector<vector<int>> grid){
+
+    //Iterate through all the cells in our grid -> for each cell make edges in the graph to all teh cells around it
+
     int VertexNum;
     pair<int,int> to;
     pair<int, int> from;
@@ -29,7 +32,7 @@ void terrain::populateGraph(vector<vector<int>> grid){
             if(i != 0 && j != grid.at(i).size() -1) {
                 //top-right
                 to = {j + 1, i - 1};
-                populateHelper(from, to, grid, 1.44);
+                populateHelper(from, to, grid, 1.41);
             }
             if(j != grid.at(i).size() - 1) {
                 //right
@@ -39,7 +42,7 @@ void terrain::populateGraph(vector<vector<int>> grid){
             if(j != grid.at(i).size() && i != grid.size() - 1) {
                 //bottom right
                 to = {j + 1, i + 1};
-                populateHelper(from, to, grid, 1.44);
+                populateHelper(from, to, grid, 1.41);
             }
             if(i != grid.size() - 1) {
                 //bottom
@@ -49,7 +52,7 @@ void terrain::populateGraph(vector<vector<int>> grid){
             if(i != grid.size() -  1 && j != 0) {
                 //bottom left
                 to = {j - 1, i + 1};
-                populateHelper(from, to, grid, 1.44);
+                populateHelper(from, to, grid, 1.41);
             }
             if(j != 0) {
                 //left
@@ -59,13 +62,16 @@ void terrain::populateGraph(vector<vector<int>> grid){
             if(j != 0 && i != 0) {
                 //top left
                 to = {j - 1, i - 1};
-                populateHelper(from, to, grid, 1.44);
+                populateHelper(from, to, grid, 1.41);
             }
         }
     }
 }
 
 void terrain::populateHelper(pair<int, int> from, pair<int, int> to, vector<vector<int>>& grid, float factor){
+
+   //Make a new vertex from "from" to "to"
+
     populateVertex(to.first, to.second, grid);
     pair<int, int> newEdge;
     newEdge.first = reverseMapper[to];
@@ -74,6 +80,9 @@ void terrain::populateHelper(pair<int, int> from, pair<int, int> to, vector<vect
 }
 
 void terrain::populateVertex(int x, int y, vector<vector<int>>& grid){
+
+    //Check if the pair we are looking at is in our graph, if not then add it
+
     pair<int, int> myPair(x,y);
     if(adjacencyList.find(reverseMapper[myPair]) == adjacencyList.end()){
         mapper[graphIndex] = myPair;
