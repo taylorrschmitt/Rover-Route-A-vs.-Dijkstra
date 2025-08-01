@@ -39,7 +39,7 @@ void Dijkstra::algorithm(int root, unordered_map<int, vector<pair<int,float>>> g
 int updateDistance(int to, int from, unordered_map<int, vector<pair<int,float>>> graph){
     for(auto it = graph.begin(); it != graph.end(); it++){
         if(it->first == to){
-
+            
         }
     }
 }

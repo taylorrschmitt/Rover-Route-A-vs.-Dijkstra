@@ -63,13 +63,6 @@ build CMakeFiles/Pathfinding_Performance_Analysis.dir/main.cpp.o: CXX_COMPILER__
   OBJECT_DIR = CMakeFiles/Pathfinding_Performance_Analysis.dir
   OBJECT_FILE_DIR = CMakeFiles/Pathfinding_Performance_Analysis.dir
 
-build CMakeFiles/Pathfinding_Performance_Analysis.dir/Dijkstra.cpp.o: CXX_COMPILER__Pathfinding_Performance_Analysis_unscanned_Debug /Users/evanschroeder/CLionProjects/Prog2Projects/Pathfinding-Performance-Analysis/Dijkstra.cpp || cmake_object_order_depends_target_Pathfinding_Performance_Analysis
-  DEP_FILE = CMakeFiles/Pathfinding_Performance_Analysis.dir/Dijkstra.cpp.o.d
-  FLAGS = -g -std=gnu++14 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk -fcolor-diagnostics
-  INCLUDES = -I/Users/evanschroeder/CLionProjects/Prog2Projects/Pathfinding-Performance-Analysis/.
-  OBJECT_DIR = CMakeFiles/Pathfinding_Performance_Analysis.dir
-  OBJECT_FILE_DIR = CMakeFiles/Pathfinding_Performance_Analysis.dir
-
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Pathfinding_Performance_Analysis
@@ -78,7 +71,7 @@ build CMakeFiles/Pathfinding_Performance_Analysis.dir/Dijkstra.cpp.o: CXX_COMPIL
 #############################################
 # Link the executable Pathfinding_Performance_Analysis
 
-build Pathfinding_Performance_Analysis: CXX_EXECUTABLE_LINKER__Pathfinding_Performance_Analysis_Debug CMakeFiles/Pathfinding_Performance_Analysis.dir/terrain.cpp.o CMakeFiles/Pathfinding_Performance_Analysis.dir/main.cpp.o CMakeFiles/Pathfinding_Performance_Analysis.dir/Dijkstra.cpp.o
+build Pathfinding_Performance_Analysis: CXX_EXECUTABLE_LINKER__Pathfinding_Performance_Analysis_Debug CMakeFiles/Pathfinding_Performance_Analysis.dir/terrain.cpp.o CMakeFiles/Pathfinding_Performance_Analysis.dir/main.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk
   OBJECT_DIR = CMakeFiles/Pathfinding_Performance_Analysis.dir
   POST_BUILD = :
