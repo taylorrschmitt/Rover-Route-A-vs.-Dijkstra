@@ -12,13 +12,14 @@ using namespace std;
 
 class terrain {
     int graphIndex;
-    unordered_map<int, vector<int>> adjacencyList;
+    unordered_map<int, vector<pair<int,int>>> adjacencyList;
     map<int, pair<int, int>> mapper;
     map<pair<int,int>, int> reverseMapper;
 public:
     terrain();
     void populateGraph(vector<vector<int>> grid);
-    void populateVertex(int x, int y, vector<vector<int>>);
+    void populateHelper(pair<int, int> from, pair<int, int> to, vector<vector<int>>& grid, float factor);
+    void populateVertex(int x, int y, vector<vector<int>>& grid);
 
     void printGraph();
 
