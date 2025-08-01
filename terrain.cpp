@@ -15,18 +15,65 @@ terrain::terrain() {
 
 void terrain::populateGraph(vector<vector<int>> grid){
     int VertexNum;
+    pair<int,int> to;
+    pair<int, int> from;
     for(int i = 0; i < grid.size(); i++){
         for(int j = 0; j < grid.at(i).size(); j++) {
-            if(i == 0){
-                if(j == 0){
-
-                }
+            populateVertex(j,i, grid);
+            from = {j,i};
+            if(i != 0) {
+                //top
+                to = {j, i - 1};
+                populateHelper(from, to, grid, 1);
+            }
+            if(i != 0 && j != grid.at(i).size() -1) {
+                //top-right
+                to = {j + 1, i - 1};
+                populateHelper(from, to, grid, 1.44);
+            }
+            if(j != grid.at(i).size() - 1) {
+                //right
+                to = {j + 1, i};
+                populateHelper(from, to, grid, 1);
+            }
+            if(j != grid.at(i).size() && i != grid.size() - 1) {
+                //bottom right
+                to = {j + 1, i + 1};
+                populateHelper(from, to, grid, 1.44);
+            }
+            if(i != grid.size() - 1) {
+                //bottom
+                to = {j, i + 1};
+                populateHelper(from, to, grid, 1);
+            }
+            if(i != grid.size() -  1 && j != 0) {
+                //bottom left
+                to = {j - 1, i + 1};
+                populateHelper(from, to, grid, 1.44);
+            }
+            if(j != 0) {
+                //left
+                to = {j - 1, i};
+                populateHelper(from, to, grid, 1);
+            }
+            if(j != 0 && i != 0) {
+                //top left
+                to = {j - 1, i - 1};
+                populateHelper(from, to, grid, 1.44);
             }
         }
     }
 }
 
-void terrain::populateVertex(int x, int y, vector<vector<int>>){
+void terrain::populateHelper(pair<int, int> from, pair<int, int> to, vector<vector<int>>& grid, float factor){
+    populateVertex(to.first, to.second, grid);
+    pair<int, int> newEdge;
+    newEdge.first = reverseMapper[to];
+    newEdge.second = grid[to.second][to.first] * factor;
+    adjacencyList[reverseMapper[from]].push_back(newEdge);
+}
+
+void terrain::populateVertex(int x, int y, vector<vector<int>>& grid){
     pair<int, int> myPair(x,y);
     if(adjacencyList.find(reverseMapper[myPair]) == adjacencyList.end()){
         mapper[graphIndex] = myPair;
