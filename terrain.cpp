@@ -118,7 +118,6 @@ vector<vector<int>> terrain::createNodes(int rows, int cols){
 }
 
 void terrain::printAdjacencyList(){
-
     for(auto it = adjacencyList.begin(); it != adjacencyList.end(); it++) {
         pair<int, int> coordinateFrom = mapper[it->first];
         cout << "(" << coordinateFrom.first << ", " << coordinateFrom.second << ")  ->";

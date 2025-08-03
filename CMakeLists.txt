@@ -8,4 +8,7 @@ include_directories(.)
 add_executable(Pathfinding_Performance_Analysis
         terrain.cpp
         terrain.h
-        main.cpp)
+        main.cpp
+        Dijkstra.cpp
+        Astar.cpp
+        Astar.h)

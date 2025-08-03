@@ -21,7 +21,7 @@ public:
     void algorithm(int root, unordered_map<int, vector<pair<int,float>>> graph);
     float getShortestDistance();
     vector<pair<int,int>>getShortestPath();
-    bool updateDistance(int to, int from, unordered_map<int, vector<pair<int,float>>> graph);
+    float updateDistance(int to, int from, unordered_map<int, vector<pair<int,float>>> graph);
     ~Dijkstra();
 };
 
