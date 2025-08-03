@@ -56,7 +56,7 @@ void Dijkstra::algorithm(int root, unordered_map<int, vector<pair<int,float>>> g
     }
 }
 
-float updateDistance(int to, int from, unordered_map<int, vector<pair<int,float>>> graph){
+float Dijkstra::updateDistance(int to, int from, unordered_map<int, vector<pair<int,float>>> graph){
     for(auto it = graph.begin(); it != graph.end(); it++){
         if(it->first == from){
             for(int i = 0; i < it->second.size(); i++){
@@ -67,4 +67,34 @@ float updateDistance(int to, int from, unordered_map<int, vector<pair<int,float>
         }
     }
     return 0;
+}
+
+vector<pair<int,int>> Dijkstra::getShortestPath(int root, int destination, unordered_map<int, vector<pair<int,float>>> graph, map<int, pair<int,int>> mapper) {
+    algorithm(root,graph);
+    stack<pair<int,int>> pathStack;
+    vector<pair<int,int>> path;
+
+    int currVertex = destination;
+    while(currVertex != root){
+        pathStack.push(mapper[currVertex]);
+        currVertex = predecessors[currVertex];
+    }
+
+    while(!pathStack.empty()){
+        path.push_back(pathStack.top());
+        pathStack.pop();
+    }
+    return path;
+}
+
+float Dijkstra::getShortestDistance(int root, int destination, unordered_map<int, vector<pair<int,float>>> graph){
+    algorithm(root, graph);
+
+    float distance = 0.0;
+    int currVertex = destination;
+    while(currVertex != root){
+        distance += distances[currVertex];
+        currVertex = predecessors[currVertex];
+    }
+    return distance;
 }

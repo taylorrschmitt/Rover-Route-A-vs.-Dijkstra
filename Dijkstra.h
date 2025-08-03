@@ -4,7 +4,9 @@
 #include<vector>
 #include<utility>
 #include<unordered_map>
+#include<map>
 #include<set>
+#include<stack>
 using namespace std;
 
 #ifndef PATHFINDING_PERFORMANCE_ANALYSIS_DIJKSTRA_H
@@ -18,11 +20,13 @@ class Dijkstra {
     float* distances = new float[vertexNum];
 public:
     Dijkstra(int rows, int cols);
-    void algorithm(int root, unordered_map<int, vector<pair<int,float>>> graph);
-    float getShortestDistance();
-    vector<pair<int,int>>getShortestPath();
-    float updateDistance(int to, int from, unordered_map<int, vector<pair<int,float>>> graph);
     ~Dijkstra();
+
+    void algorithm(int root, unordered_map<int, vector<pair<int,float>>> graph);
+    float updateDistance(int to, int from, unordered_map<int, vector<pair<int,float>>> graph);
+
+    float getShortestDistance(int root, int destination, unordered_map<int, vector<pair<int,float>>> graph);
+    vector<pair<int,int>>getShortestPath(int root, int destination, unordered_map<int, vector<pair<int,float>>> graph,map<int, pair<int,int>> Mapper);
 };
 
 
