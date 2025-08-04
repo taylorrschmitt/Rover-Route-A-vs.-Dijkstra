@@ -120,16 +120,15 @@ vector<pair<int,int>> Dijkstra::getShortestPathHelper(int root, int destination)
 
 float Dijkstra::getShortestDistance(std::string from, std::string to) {
     stringstream fromStream(from);
-    int x;
-    int y;
+    int xFrom, yFrom, xTo, yTo;
     char dummy;
 
-    fromStream >> dummy >> x >> dummy >> y >> dummy;
-    pair<int, int> fromCoords(x,y);
+    fromStream >> dummy >> xFrom >> dummy >> yFrom >> dummy;
+    pair<int, int> fromCoords(xFrom,yFrom);
 
-    stringstream toStream(from);
-    fromStream >> dummy >> x >> dummy >> y >> dummy;
-    pair<int, int> toCoords(x,y);
+    stringstream toStream(to);
+    toStream >> dummy >> xTo >> dummy >> yTo >> dummy;
+    pair<int, int> toCoords(xTo,yTo);
 
     return getShortestDistanceHelper(reverseMapper[fromCoords], reverseMapper[toCoords]);
 }
