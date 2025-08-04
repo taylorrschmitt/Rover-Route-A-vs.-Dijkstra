@@ -25,6 +25,7 @@ void Dijkstra::algorithm(int root, unordered_map<int, vector<pair<int,float>>> g
     visited.insert(root);
     set<int> notVisited;
 
+    //filling up the not visited set for the first iteration, updating distance of all vertices adjacent to root
     for(auto it = graph.begin(); it != graph.end(); it++){
         if(root != it->first){
             notVisited.insert(it->first);
@@ -35,6 +36,7 @@ void Dijkstra::algorithm(int root, unordered_map<int, vector<pair<int,float>>> g
         }
     }
     while(!notVisited.empty()){
+        //Finding u with smallest distance from root
         int smallestDist = 10000000;
         int u;
         for(auto it = notVisited.begin(); it != notVisited.end(); it++){
@@ -44,6 +46,8 @@ void Dijkstra::algorithm(int root, unordered_map<int, vector<pair<int,float>>> g
         }
         notVisited.erase(u);
         visited.insert(u);
+
+        //Relaxing all of the vertices adjacent to U
         vector<pair<int,float>> adjacentVertices = graph[u];
         for(int i = 0; i < adjacentVertices.size(); i++){
             if(notVisited.find(adjacentVertices.at(i).first) != notVisited.end()){
@@ -57,6 +61,8 @@ void Dijkstra::algorithm(int root, unordered_map<int, vector<pair<int,float>>> g
 }
 
 float Dijkstra::updateDistance(int to, int from, unordered_map<int, vector<pair<int,float>>> graph){
+
+    //Helper function for algorithm
     for(auto it = graph.begin(); it != graph.end(); it++){
         if(it->first == from){
             for(int i = 0; i < it->second.size(); i++){
@@ -74,12 +80,14 @@ vector<pair<int,int>> Dijkstra::getShortestPath(int root, int destination, unord
     stack<pair<int,int>> pathStack;
     vector<pair<int,int>> path;
 
+    //go through predecessors to find path and place on stack
     int currVertex = destination;
     while(currVertex != root){
         pathStack.push(mapper[currVertex]);
         currVertex = predecessors[currVertex];
     }
 
+    //reverse stack onto a vector
     while(!pathStack.empty()){
         path.push_back(pathStack.top());
         pathStack.pop();
@@ -90,6 +98,7 @@ vector<pair<int,int>> Dijkstra::getShortestPath(int root, int destination, unord
 float Dijkstra::getShortestDistance(int root, int destination, unordered_map<int, vector<pair<int,float>>> graph){
     algorithm(root, graph);
 
+    //iterate through path and add up teh distance until you find root
     float distance = 0.0;
     int currVertex = destination;
     while(currVertex != root){
