@@ -38,8 +38,8 @@ void terrain::populateGraph(vector<vector<int>> grid){
 
             for (int k = 0; k < numOfEdges; k++) {
                 int newDirec = edgeDirections[k];
-                int newX = directions[k].first + j;
-                int newY = directions[k].second + i;
+                int newX = directions[newDirec].first + j;
+                int newY = directions[newDirec].second + i;
 
                 if (newX >= 0 && newX < grid[0].size() && newY >= 0 && newY < grid.size()) {
                     pair<int, int> to = {newX, newY};
@@ -120,7 +120,7 @@ vector<vector<int>> terrain::createNodes(int rows, int cols){
     //creating 2d vector of nodes with values ranging from 0-5 for type of obstacle
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
-            int value = rand() % 6 + 1;
+            int value = rand() % 5 + 1;
             grid[i][j] = value;
         }
     }

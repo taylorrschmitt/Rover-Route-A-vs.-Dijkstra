@@ -7,10 +7,14 @@ Dijkstra::Dijkstra(int rows, int cols, terrain& terrain) {
     float BigBigNum = 100000000.0;
     vertexNum = rows * cols;
 
+    predecessors = new int[vertexNum];
+    distances = new float[vertexNum];
+
     for(int i = 0; i < vertexNum; i++){
         predecessors[i] = -1;
         distances[i] = BigBigNum;
     }
+
     this->adjacencyList = terrain.getAdjacencyList();
     this->mapper = terrain.getMapper();
     this->reverseMapper = terrain.getReverseMapper();
@@ -78,17 +82,19 @@ float Dijkstra::updateDistance(int to, int from){
 
 vector<pair<int,int>> Dijkstra::getShortestPath(string from, string to){
     stringstream fromStream(from);
-    int x;
-    int y;
+    int xFrom, yFrom, xTo, yTo;
     char dummy;
 
-    fromStream >> dummy >> x >> dummy >> y >> dummy;
-    pair<int, int> fromCoords(x,y);
+    fromStream >> dummy >> xFrom >> dummy >> yFrom >> dummy;
+    pair<int, int> fromCoords(xFrom,yFrom);
 
-    stringstream toStream(from);
-    fromStream >> dummy >> x >> dummy >> y >> dummy;
-    pair<int, int> toCoords(x,y);
+    cout << "[" << xFrom << "," << yFrom << "]" <<endl;
 
+    stringstream toStream(to);
+    toStream >> dummy >> xTo >> dummy >> yTo >> dummy;
+    pair<int, int> toCoords(xTo,yTo);
+
+    cout << "[" << xTo << "," << yTo << "]" <<endl;
     return getShortestPathHelper(reverseMapper[fromCoords], reverseMapper[toCoords]);
 }
 

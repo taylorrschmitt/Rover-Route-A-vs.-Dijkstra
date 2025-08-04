@@ -30,7 +30,8 @@ int main() {
     cout << endl;
 
     terrain graph;
-    graph.createNodes(rows, columns);
+    vector<vector<int>> grid = graph.createNodes(rows, columns);
+    graph.populateGraph(grid);
     cout << endl;
 
     //dijkstra testing
@@ -44,6 +45,7 @@ int main() {
     cout << endl;
     cout << "Shortest Distance: " <<  testDijkstra.getShortestDistance(from, to) << endl;
 
+    graph.printAdjacencyList();
     //Astar testing
     Astar testAstar;
     vector<pair<int, int>> AStarCoords = testAstar.findPath(from, to);

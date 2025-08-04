@@ -9,6 +9,7 @@
 #include<set>
 #include<stack>
 #include<sstream>
+#include<iostream>
 using namespace std;
 
 #ifndef PATHFINDING_PERFORMANCE_ANALYSIS_DIJKSTRA_H
@@ -17,8 +18,8 @@ using namespace std;
 class Dijkstra {
     float shortestPath;
     int vertexNum;
-    int* predecessors = new int[vertexNum];
-    float* distances = new float[vertexNum];
+    int* predecessors;
+    float* distances;
 
     unordered_map<int, vector<pair<int,float>>> adjacencyList;
     map<int, pair<int, int>> mapper;
