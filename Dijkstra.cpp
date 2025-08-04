@@ -75,7 +75,7 @@ float Dijkstra::updateDistance(int to, int from, unordered_map<int, vector<pair<
     return 0;
 }
 
-vector<pair<int,int>> Dijkstra::getShortestPath(int root, int destination, unordered_map<int, vector<pair<int,float>>>& graph, map<int, pair<int,int>>& mapper) {
+vector<pair<int,int>> Dijkstra::getShortestPathHelper(int root, int destination, unordered_map<int, vector<pair<int,float>>>& graph, map<int, pair<int,int>>& mapper) {
     algorithm(root,graph);
     stack<pair<int,int>> pathStack;
     vector<pair<int,int>> path;
@@ -95,7 +95,23 @@ vector<pair<int,int>> Dijkstra::getShortestPath(int root, int destination, unord
     return path;
 }
 
-float Dijkstra::getShortestDistance(int root, int destination, unordered_map<int, vector<pair<int,float>>>& graph){
+float Dijkstra::getShortestDistance(std::string from, std::string to, unordered_map<int, vector<pair<int, float>>> &graph, map<int, pair<int, int>> &Mapper, map<pair<int, int>> ) {
+    stringstream fromStream(from);
+    int x;
+    int y;
+    char dummy;
+
+    fromStream >> dummy >> x >> dummy >> y >> dummy;
+    pair<int, int> fromCoords(x,y);
+
+    stringstream toStream(from);
+    fromStream >> dummy >> x >> dummy >> y >> dummy;
+    pair<int, int> toCoords(x,y);
+
+
+
+}
+float Dijkstra::getShortestDistanceHelper(int root, int destination, unordered_map<int, vector<pair<int,float>>>& graph){
     algorithm(root, graph);
 
     //iterate through path and add up the distance until you find root
