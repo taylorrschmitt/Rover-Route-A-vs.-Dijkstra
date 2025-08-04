@@ -44,6 +44,7 @@ int main() {
     cout << endl;
     cout << "Shortest Distance: " <<  testDijkstra.getShortestDistance(from, to) << endl;
 
+    graph.printAdjacencyList();
     Astar testAstar;
     //testDijkstra.~Dijkstra();
 
