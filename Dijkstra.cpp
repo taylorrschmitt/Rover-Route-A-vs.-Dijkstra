@@ -42,7 +42,7 @@ void Dijkstra::algorithm(int root) {
     }
     while(!notVisited.empty()){
         //Finding u with smallest distance from root
-        int smallestDist = 10000000;
+        float smallestDist = 10000000.0;
         int u;
         for(auto it = notVisited.begin(); it != notVisited.end(); it++){
             if(distances[*it] < smallestDist){
