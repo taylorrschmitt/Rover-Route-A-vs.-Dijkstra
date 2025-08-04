@@ -10,5 +10,6 @@ add_executable(Pathfinding_Performance_Analysis
         terrain.h
         main.cpp
         Dijkstra.cpp
+        Dijkstra.h
         Astar.cpp
         Astar.h)

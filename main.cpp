@@ -4,19 +4,47 @@
 #include <iostream>
 #include <ostream>
 #include "terrain.h"
+#include "Astar.h"
+#include "Dijkstra.h"
+
 using namespace std;
 
 int main() {
     int rows, columns;
-    cout << "Please enter the number of rows: " << endl;
+    string from, to;
+
+    cout << "Please enter the number of rows: ";
     cin >> rows;
-    cout << "Please enter the number of columns: " << endl;
+    cout << endl;
+
+    cout << "Please enter the number of columns: " ;
     cin >> columns;
+    cout << endl;
+
+    cout << "From: ";
+    cin >> from;
+    cout << endl;
+
+    cout << "To: ";
+    cin >> to;
+    cout << endl;
 
     terrain graph;
     graph.createNodes(rows, columns);
     cout << endl;
-    graph.printAdjacencyList();
+
+    Dijkstra testDijkstra(rows,columns,graph);
+    vector<pair<int, int>> path = testDijkstra.getShortestPath(from, to);
+
+    cout << "Dijkstra's shortest path: " << endl;
+    for(int i = 0; i < path.size(); i++){
+        cout << "[" << path.at(i).first << ", " << path.at(i).second << "] ->";
+    }
+    cout << endl;
+    cout << "Shortest Distance: " <<  testDijkstra.getShortestDistance(from, to) << endl;
+
+    Astar testAstar;
+
 
     return 0;
 }
