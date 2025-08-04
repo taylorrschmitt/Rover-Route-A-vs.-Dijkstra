@@ -23,7 +23,7 @@ class Astar {
         unordered_set<int> closedList;
 
         float predictHeuristic(pair<float, int> currNode, pair<float, int> destNode);
-        vector<int> newPath(int start, int dest, terrain &graph);
+        vector<pair<int, int>> newPath(int start, int dest, terrain &graph);
 
     public:
     //needed functions: pathfinder, hueristic calulator(g), actual cost calculator(f)
