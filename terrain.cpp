@@ -139,3 +139,13 @@ pair<int, int> terrain::getCoordFromIndex(int index) const {
 const vector<pair<int, float>>& terrain::getNeighbors(int index) {
     return adjacencyList.at(index);
 }
+
+unordered_map<int, vector<pair<int,float>>> terrain::getAdjacencyList(){
+    return adjacencyList;
+}
+map<int, pair<int, int>> terrain::getMapper(){
+    return mapper;
+}
+map<pair<int,int>, int> terrain::getReverseMapper(){
+    return reverseMapper;
+}

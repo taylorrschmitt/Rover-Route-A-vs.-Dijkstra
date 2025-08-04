@@ -1,10 +1,9 @@
 //
 // Created by Evan Schroeder on 8/1/25.
 //
-
 #include "Dijkstra.h"
 
-Dijkstra::Dijkstra(int rows, int cols) {
+Dijkstra::Dijkstra(int rows, int cols, terrain& terrain) {
     float BigBigNum = 100000000.0;
     vertexNum = rows * cols;
 
@@ -12,7 +11,9 @@ Dijkstra::Dijkstra(int rows, int cols) {
         predecessors[i] = -1;
         distances[i] = BigBigNum;
     }
-
+    this->adjacencyList = terrain.getAdjacencyList();
+    this->mapper = terrain.getMapper();
+    this->reverseMapper = terrain.getReverseMapper();
 }
 
 Dijkstra::~Dijkstra() {
@@ -20,18 +21,18 @@ Dijkstra::~Dijkstra() {
     delete[] distances;
 }
 
-void Dijkstra::algorithm(int root, unordered_map<int, vector<pair<int,float>>>& graph) {
+void Dijkstra::algorithm(int root) {
     set<int> visited;
     visited.insert(root);
     set<int> notVisited;
 
     //filling up the not visited set for the first iteration, updating distance of all vertices adjacent to root
-    for(auto it = graph.begin(); it != graph.end(); it++){
+    for(auto it = adjacencyList.begin(); it != adjacencyList.end(); it++){
         if(root != it->first){
             notVisited.insert(it->first);
         }
-        if(updateDistance(root, it->first, graph) != 0){
-            distances[it->first] = updateDistance(root, it->first, graph);
+        if(updateDistance(root, it->first) != 0){
+            distances[it->first] = updateDistance(root, it->first);
             predecessors[it->first] = root;
         }
     }
@@ -48,7 +49,7 @@ void Dijkstra::algorithm(int root, unordered_map<int, vector<pair<int,float>>>& 
         visited.insert(u);
 
         //Relaxing all of the vertices adjacent to U
-        vector<pair<int,float>> adjacentVertices = graph[u];
+        vector<pair<int,float>> adjacentVertices = adjacencyList[u];
         for(int i = 0; i < adjacentVertices.size(); i++){
             if(notVisited.find(adjacentVertices.at(i).first) != notVisited.end()){
                 if(distances[u] + adjacentVertices.at(i).second < distances[adjacentVertices.at(i).first]){
@@ -60,10 +61,10 @@ void Dijkstra::algorithm(int root, unordered_map<int, vector<pair<int,float>>>& 
     }
 }
 
-float Dijkstra::updateDistance(int to, int from, unordered_map<int, vector<pair<int,float>>>& graph){
+float Dijkstra::updateDistance(int to, int from){
 
     //Helper function for algorithm
-    for(auto it = graph.begin(); it != graph.end(); it++){
+    for(auto it = adjacencyList.begin(); it != adjacencyList.end(); it++){
         if(it->first == from){
             for(int i = 0; i < it->second.size(); i++){
                 if(it->second.at(i).first == to){
@@ -75,8 +76,24 @@ float Dijkstra::updateDistance(int to, int from, unordered_map<int, vector<pair<
     return 0;
 }
 
-vector<pair<int,int>> Dijkstra::getShortestPathHelper(int root, int destination, unordered_map<int, vector<pair<int,float>>>& graph, map<int, pair<int,int>>& mapper) {
-    algorithm(root,graph);
+vector<pair<int,int>> Dijkstra::getShortestPath(string from, string to){
+    stringstream fromStream(from);
+    int x;
+    int y;
+    char dummy;
+
+    fromStream >> dummy >> x >> dummy >> y >> dummy;
+    pair<int, int> fromCoords(x,y);
+
+    stringstream toStream(from);
+    fromStream >> dummy >> x >> dummy >> y >> dummy;
+    pair<int, int> toCoords(x,y);
+
+    return getShortestPathHelper(reverseMapper[fromCoords], reverseMapper[toCoords]);
+}
+
+vector<pair<int,int>> Dijkstra::getShortestPathHelper(int root, int destination) {
+    algorithm(root);
     stack<pair<int,int>> pathStack;
     vector<pair<int,int>> path;
 
@@ -95,7 +112,7 @@ vector<pair<int,int>> Dijkstra::getShortestPathHelper(int root, int destination,
     return path;
 }
 
-float Dijkstra::getShortestDistance(std::string from, std::string to, unordered_map<int, vector<pair<int, float>>> &graph, map<int, pair<int, int>> &Mapper, map<pair<int, int>> ) {
+float Dijkstra::getShortestDistance(std::string from, std::string to) {
     stringstream fromStream(from);
     int x;
     int y;
@@ -108,11 +125,10 @@ float Dijkstra::getShortestDistance(std::string from, std::string to, unordered_
     fromStream >> dummy >> x >> dummy >> y >> dummy;
     pair<int, int> toCoords(x,y);
 
-
-
+    return getShortestDistanceHelper(reverseMapper[fromCoords], reverseMapper[toCoords]);
 }
-float Dijkstra::getShortestDistanceHelper(int root, int destination, unordered_map<int, vector<pair<int,float>>>& graph){
-    algorithm(root, graph);
+float Dijkstra::getShortestDistanceHelper(int root, int destination){
+    algorithm(root);
 
     //iterate through path and add up the distance until you find root
     float distance = 0.0;

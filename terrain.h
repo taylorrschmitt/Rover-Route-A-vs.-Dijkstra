@@ -23,6 +23,10 @@ public:
     void printAdjacencyList();
     int getIndexCoordinate(pair<int, int> cord) const;
     pair<int, int> getCoordFromIndex(int index) const;
+    unordered_map<int, vector<pair<int,float>>> getAdjacencyList();
+    map<int, pair<int, int>> getMapper();
+    map<pair<int,int>, int> getReverseMapper();
+
     const vector<pair<int, float>> &getNeighbors(int index);
 
     vector<vector<int>> createNodes(int rows, int cols);
