@@ -23,12 +23,12 @@ public:
     ~Dijkstra();
 
     //Actual Dijkstra's algorithm and helper functions
-    void algorithm(int root, unordered_map<int, vector<pair<int,float>>> graph);
-    float updateDistance(int to, int from, unordered_map<int, vector<pair<int,float>>> graph);
+    void algorithm(int root, unordered_map<int, vector<pair<int,float>>>& graph);
+    float updateDistance(int to, int from, unordered_map<int, vector<pair<int,float>>>& graph);
 
     //functions that will be used in main to output
-    float getShortestDistance(int root, int destination, unordered_map<int, vector<pair<int,float>>> graph);
-    vector<pair<int,int>>getShortestPath(int root, int destination, unordered_map<int, vector<pair<int,float>>> graph,map<int, pair<int,int>> Mapper);
+    float getShortestDistance(int root, int destination, unordered_map<int, vector<pair<int,float>>>& graph);
+    vector<pair<int,int>>getShortestPath(int root, int destination, unordered_map<int, vector<pair<int,float>>>& graph,map<int, pair<int,int>>& Mapper);
 };
 
 
