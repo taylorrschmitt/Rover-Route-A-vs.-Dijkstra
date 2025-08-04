@@ -13,10 +13,14 @@ vector<pair<int, int>> Astar::newPath(pair<int, int> start, pair<int, int> dest,
     vector<pair<int, int>> path;
     int current = graph.getIndexCoordinate(dest);
     int startIndex = graph.getIndexCoordinate(start);
+
+    //working backwards from the destination to return a vector of the new path
     while (current != startIndex) {
         path.push_back(graph.getCoordFromIndex(current));
         current = nodeInfo[current].parent;
     }
+
+    //adding the starting coord and then putting the path in chronological order
     path.push_back(start);
     reverse(path.begin(), path.end());
     return path;
@@ -31,7 +35,6 @@ vector<pair<int,int>> Astar::findPath(terrain &graph, pair<int,int> start, pair<
     int end = graph.getIndexCoordinate(dest);
 
     nodeInfo[begin] = {0.0f, 0.0f, predictHeuristic(start, dest), -1};
-
     openList.push({nodeInfo[begin].f, begin});
 
     while (!openList.empty()) {
@@ -61,6 +64,7 @@ vector<pair<int,int>> Astar::findPath(terrain &graph, pair<int,int> start, pair<
             }
 
             float gCost = nodeInfo[currentNode].g + weight;
+
             //if neighbor is unseen or there's a cheaper path found
             if (!nodeInfo.count(nextNode) || gCost < nodeInfo[nextNode].g) {
                 nodeInfo[nextNode].heuristic = predictHeuristic(graph.getCoordFromIndex(nextNode), dest);
