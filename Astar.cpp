@@ -27,13 +27,16 @@ vector<pair<int, int>> Astar::newPath(pair<int, int> start, pair<int, int> dest,
 }
 
 float Astar::predictHeuristic(pair<float, int> currNode, pair<float, int> destNode) {
-    return sqrt(pow(currNode.first - destNode.first, 2) + pow(currNode.second - destNode.second, 2));
+    //using the pythagorean theorem since our grid is theoretically all diagonals right now for data simplicity
+    float heuristic = sqrt(pow(currNode.first - destNode.first, 2) + pow(currNode.second - destNode.second, 2));
+    return heuristic;
 }
 
 vector<pair<int,int>> Astar::findPath(terrain &graph, pair<int,int> start, pair<int,int> dest) {
     int begin = graph.getIndexCoordinate(start);
     int end = graph.getIndexCoordinate(dest);
 
+    //assigning node data and pushing it to the priority queue
     nodeInfo[begin] = {0.0f, 0.0f, predictHeuristic(start, dest), -1};
     openList.push({nodeInfo[begin].f, begin});
 
@@ -75,6 +78,7 @@ vector<pair<int,int>> Astar::findPath(terrain &graph, pair<int,int> start, pair<
             }
         }
     }
+
     //else, no path was found
     return{};
 }
