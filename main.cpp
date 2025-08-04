@@ -30,7 +30,8 @@ int main() {
     cout << endl;
 
     terrain graph;
-    graph.createNodes(rows, columns);
+    vector<vector<int>> grid = graph.createNodes(rows, columns);
+    graph.populateGraph(grid);
     cout << endl;
 
     Dijkstra testDijkstra(rows,columns,graph);
@@ -44,7 +45,7 @@ int main() {
     cout << "Shortest Distance: " <<  testDijkstra.getShortestDistance(from, to) << endl;
 
     Astar testAstar;
-
+    //testDijkstra.~Dijkstra();
 
     return 0;
 }
