@@ -120,7 +120,7 @@ vector<vector<int>> terrain::createNodes(int rows, int cols){
     //creating 2d vector of nodes with values ranging from 0-5 for type of obstacle
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
-            int value = rand() % 5 + 1;
+            int value = rand() % 6 + 1;
             grid[i][j] = value;
         }
     }
