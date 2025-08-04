@@ -42,6 +42,7 @@ int main() {
     for(int i = 0; i < path.size(); i++){
         cout << "[" << path.at(i).first << ", " << path.at(i).second << "] ->";
     }
+    //cout << " End" << endl;
     cout << endl;
     cout << "Shortest Distance: " <<  testDijkstra.getShortestDistance(from, to) << endl;
     cout << endl;
@@ -51,6 +52,7 @@ int main() {
 
     //Astar testing
     Astar testAstar;
+
     vector<pair<int, int>> AStarCoords = testAstar.findPath(from, to);
     pair<int, int> fromCoord = AStarCoords.at(0);
     pair<int, int> toCoord = AStarCoords.at(1);
@@ -60,9 +62,10 @@ int main() {
         cout << "No path found by A*." << endl;
     } else {
         cout << "A* shortest path: " << endl;
-        for (const auto& p : AstarPath) {
+        for (const auto &p : AstarPath) {
             cout << "[" << p.first << ", " << p.second << "] ->";
         }
+        cout << " End" << endl;
         cout << endl;
         cout << "Total Cost: " << testAstar.getTotalDistance(AstarPath, graph) << endl;
     }

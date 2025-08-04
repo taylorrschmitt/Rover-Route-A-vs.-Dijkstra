@@ -7,6 +7,7 @@
 #include <unordered_map>
 #include <cmath>
 #include <sstream>
+#include <iostream>
 using namespace std;
 
 Astar::Astar() {
@@ -49,6 +50,7 @@ vector<pair<int,int>> Astar::algorithm(terrain &graph, pair<int,int> start, pair
     //algorithm starts
     int begin = graph.getIndexCoordinate(start);
     int end = graph.getIndexCoordinate(dest);
+    cout << "A* start index: " << begin << ", end index: " << end << endl;
 
     //assigning node data and pushing it to the priority queue
     nodeInfo[begin] = {0.0f, 0.0f, predictHeuristic(start, dest), -1};
@@ -59,6 +61,9 @@ vector<pair<int,int>> Astar::algorithm(terrain &graph, pair<int,int> start, pair
         float fCost = currNode.first;
         int currentNode = currNode.second;
         openList.pop();
+
+        cout << "Exploring node index: " << currentNode << " (coord: " << graph.getCoordFromIndex(currentNode).first << ", " << graph.getCoordFromIndex(currentNode).second << ")" << endl;
+
 
         //reached the end of the path
         if (currentNode == end) {
