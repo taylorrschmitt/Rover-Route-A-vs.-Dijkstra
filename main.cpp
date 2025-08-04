@@ -47,6 +47,7 @@ int main() {
     cout << endl;
 
     graph.printAdjacencyList();
+    cout << endl;
 
     //Astar testing
     Astar testAstar;
@@ -66,6 +67,9 @@ int main() {
         cout << "Total Cost: " << testAstar.getTotalDistance(AstarPath, graph) << endl;
     }
 
+    cout << endl;
+
+    graph.printAdjacencyList();
 
     return 0;
 }
