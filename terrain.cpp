@@ -5,7 +5,7 @@
 #include "terrain.h"
 #include <iostream>
 #include <vector>
-#include <cstdlib>
+#include <algorithm>
 #include <ctime>
 using namespace std;
 
@@ -22,47 +22,71 @@ void terrain::populateGraph(vector<vector<int>> grid){
     for(int i = 0; i < grid.size(); i++){
         for(int j = 0; j < grid.at(i).size(); j++) {
             populateVertex(j,i, grid);
-            from = {j,i};
-            if(i != 0) {
-                //top
-                to = {j, i - 1};
-                populateHelper(from, to, grid, 1);
+            pair<int, int> from = {j,i};
+
+            //creating vectors for the coordinates of directions and their weights
+            vector<pair<int, int>> directions = {
+                {0, -1},  {1, -1},  {1, 0},  {1, 1}, {0, 1},   {-1, 1},  {-1, 0}, {-1, -1}
+            };
+            vector<float> directionWeights = {
+                1.0, 1.41, 1.0, 1.41, 1.0, 1.41, 1.0, 1.41
+            };
+            //randomizing the direction of edges and the number of edges for each vertex
+            vector<int> edgeDirections = {0,1,2,3,4,5,6,7};
+            random_shuffle(edgeDirections.begin(), edgeDirections.end());
+            int numOfEdges = rand() % 6;
+
+            for (int k = 0; k < numOfEdges; k++) {
+                int newDirec = edgeDirections[k];
+                int newX = directions[k].first + j;
+                int newY = directions[k].second + i;
+
+                if (newX >= 0 && newX < grid[0].size() && newY >= 0 && newY < grid.size()) {
+                    pair<int, int> to = {newX, newY};
+                    populateHelper(from, to, grid, directionWeights[newDirec]);
+                }
             }
-            if(i != 0 && j != grid.at(i).size() -1) {
-                //top-right
-                to = {j + 1, i - 1};
-                populateHelper(from, to, grid, 1.41);
-            }
-            if(j != grid.at(i).size() - 1) {
-                //right
-                to = {j + 1, i};
-                populateHelper(from, to, grid, 1);
-            }
-            if(j != grid.at(i).size() - 1 && i != grid.size() - 1) {
-                //bottom right
-                to = {j + 1, i + 1};
-                populateHelper(from, to, grid, 1.41);
-            }
-            if(i != grid.size() - 1) {
-                //bottom
-                to = {j, i + 1};
-                populateHelper(from, to, grid, 1);
-            }
-            if(i != grid.size() -  1 && j != 0) {
-                //bottom left
-                to = {j - 1, i + 1};
-                populateHelper(from, to, grid, 1.41);
-            }
-            if(j != 0) {
-                //left
-                to = {j - 1, i};
-                populateHelper(from, to, grid, 1);
-            }
-            if(j != 0 && i != 0) {
-                //top left
-                to = {j - 1, i - 1};
-                populateHelper(from, to, grid, 1.41);
-            }
+
+            // if(i != 0) {
+            //     //top
+            //     to = {j, i - 1};
+            //     populateHelper(from, to, grid, 1);
+            // }
+            // if(i != 0 && j != grid.at(i).size() -1) {
+            //     //top-right
+            //     to = {j + 1, i - 1};
+            //     populateHelper(from, to, grid, 1.41);
+            // }
+            // if(j != grid.at(i).size() - 1) {
+            //     //right
+            //     to = {j + 1, i};
+            //     populateHelper(from, to, grid, 1);
+            // }
+            // if(j != grid.at(i).size() - 1 && i != grid.size() - 1) {
+            //     //bottom right
+            //     to = {j + 1, i + 1};
+            //     populateHelper(from, to, grid, 1.41);
+            // }
+            // if(i != grid.size() - 1) {
+            //     //bottom
+            //     to = {j, i + 1};
+            //     populateHelper(from, to, grid, 1);
+            // }
+            // if(i != grid.size() -  1 && j != 0) {
+            //     //bottom left
+            //     to = {j - 1, i + 1};
+            //     populateHelper(from, to, grid, 1.41);
+            // }
+            // if(j != 0) {
+            //     //left
+            //     to = {j - 1, i};
+            //     populateHelper(from, to, grid, 1);
+            // }
+            // if(j != 0 && i != 0) {
+            //     //top left
+            //     to = {j - 1, i - 1};
+            //     populateHelper(from, to, grid, 1.41);
+            // }
         }
     }
 }

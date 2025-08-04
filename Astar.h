@@ -27,6 +27,7 @@ class Astar {
 
     public:
     //needed functions: pathfinder, hueristic calulator(g), actual cost calculator(f)
+        Astar();
         vector<pair<int,int>> findPath(terrain &graph, pair<int,int> start, pair<int,int> goal);
 };
 #endif //ASTAR_H
