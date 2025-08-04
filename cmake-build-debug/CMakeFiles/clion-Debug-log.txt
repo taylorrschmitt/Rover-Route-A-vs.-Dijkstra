@@ -1,4 +1,4 @@
-"C:\Program Files\JetBrains\CLion 2025\CLion 2025.1.1\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "MinGW Makefiles" -S C:\Users\taylo\CLionProjects\Rover-Route-A-vs.-Dijkstra -B C:\Users\taylo\CLionProjects\Rover-Route-A-vs.-Dijkstra\cmake-build-debug
+"C:\Program Files\JetBrains\CLion 2025\CLion 2025.1.1\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH=C:/Users/taylo/Downloads/SFML-3.0.0-windows-gcc-14.2.0-mingw-64-bit/SFML-3.0.0C:/Users/taylo/CLionProjects/Rover-Route-A-vs.-Dijkstra -G "MinGW Makefiles" -S C:\Users\taylo\CLionProjects\Rover-Route-A-vs.-Dijkstra -B C:\Users\taylo\CLionProjects\Rover-Route-A-vs.-Dijkstra\cmake-build-debug
 -- The C compiler identification is GNU 13.1.0
 -- The CXX compiler identification is GNU 13.1.0
 -- Detecting C compiler ABI info
@@ -11,6 +11,7 @@
 -- Check for working CXX compiler: C:/Program Files/JetBrains/CLion 2025/CLion 2025.1.1/bin/mingw/bin/g++.exe - skipped
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
--- Configuring done (4.6s)
--- Generating done (0.1s)
+-- Found SFML 3.0.0 in C:/Users/taylo/Downloads/SFML-3.0.0-windows-gcc-14.2.0-mingw-64-bit/SFML-3.0.0/lib/cmake/SFML
+-- Configuring done (3.9s)
+-- Generating done (0.0s)
 -- Build files have been written to: C:/Users/taylo/CLionProjects/Rover-Route-A-vs.-Dijkstra/cmake-build-debug

@@ -147,6 +147,9 @@ CMAKE_OBJCOPY:FILEPATH=C:/Program Files/JetBrains/CLion 2025/CLion 2025.1.1/bin/
 //Path to a program.
 CMAKE_OBJDUMP:FILEPATH=C:/Program Files/JetBrains/CLion 2025/CLion 2025.1.1/bin/mingw/bin/objdump.exe
 
+//No help, variable specified on the command line.
+CMAKE_PREFIX_PATH:UNINITIALIZED=C:/Users/taylo/Downloads/SFML-3.0.0-windows-gcc-14.2.0-mingw-64-bit/SFML-3.0.0C:/Users/taylo/CLionProjects/Rover-Route-A-vs.-Dijkstra
+
 //Value Computed by CMake
 CMAKE_PROJECT_DESCRIPTION:STATIC=
 
@@ -247,6 +250,9 @@ Pathfinding_Performance_Analysis_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
 Pathfinding_Performance_Analysis_SOURCE_DIR:STATIC=C:/Users/taylo/CLionProjects/Rover-Route-A-vs.-Dijkstra
+
+//Path to a file.
+SFML_DOC_DIR:PATH=SFML_DOC_DIR-NOTFOUND
 
 
 ########################
