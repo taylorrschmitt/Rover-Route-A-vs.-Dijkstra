@@ -16,7 +16,6 @@ terrain::terrain() {
 void terrain::populateGraph(vector<vector<int>> grid){
 
     //Iterate through all the cells in our grid -> for each cell make edges in the graph to all teh cells around it
-
     int VertexNum;
     pair<int,int> to;
     pair<int, int> from;
@@ -71,7 +70,6 @@ void terrain::populateGraph(vector<vector<int>> grid){
 void terrain::populateHelper(pair<int, int> from, pair<int, int> to, vector<vector<int>>& grid, float factor){
 
    //Make a new vertex from "from" to "to"
-
     populateVertex(to.first, to.second, grid);
     pair<int, int> newEdge;
     newEdge.first = reverseMapper[to];
@@ -82,7 +80,6 @@ void terrain::populateHelper(pair<int, int> from, pair<int, int> to, vector<vect
 void terrain::populateVertex(int x, int y, vector<vector<int>>& grid){
 
     //Check if the pair we are looking at is in our graph, if not then add it
-
     pair<int, int> myPair(x,y);
     if(reverseMapper.find(myPair) == reverseMapper.end()){
         mapper[graphIndex] = myPair;

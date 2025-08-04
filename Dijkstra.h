@@ -7,6 +7,7 @@
 #include<map>
 #include<set>
 #include<stack>
+#include<sstream>
 using namespace std;
 
 #ifndef PATHFINDING_PERFORMANCE_ANALYSIS_DIJKSTRA_H
@@ -22,11 +23,16 @@ public:
     Dijkstra(int rows, int cols);
     ~Dijkstra();
 
-    void algorithm(int root, unordered_map<int, vector<pair<int,float>>> graph);
-    float updateDistance(int to, int from, unordered_map<int, vector<pair<int,float>>> graph);
+    //Actual Dijkstra's algorithm and helper functions
+    void algorithm(int root, unordered_map<int, vector<pair<int,float>>>& graph);
+    float updateDistance(int to, int from, unordered_map<int, vector<pair<int,float>>>& graph);
 
-    float getShortestDistance(int root, int destination, unordered_map<int, vector<pair<int,float>>> graph);
-    vector<pair<int,int>>getShortestPath(int root, int destination, unordered_map<int, vector<pair<int,float>>> graph,map<int, pair<int,int>> Mapper);
+    //functions that will be used in main to output
+    float getShortestDistance(string from, string to, unordered_map<int, vector<pair<int,float>>>& graph);
+    float getShortestDistanceHelper(int root, int destination, unordered_map<int, vector<pair<int,float>>>& graph);
+
+    vector<pair<int,int>>getShortestPath(string from, string to, unordered_map<int, vector<pair<int,float>>>& graph,map<int, pair<int,int>>& Mapper);
+    vector<pair<int,int>>getShortestPathHelper(int root, int destination, unordered_map<int, vector<pair<int,float>>>& graph,map<int, pair<int,int>>& Mapper);
 };
 
 

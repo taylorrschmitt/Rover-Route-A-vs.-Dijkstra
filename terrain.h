@@ -9,7 +9,6 @@ using namespace std;
 #ifndef PATHFINDING_PERFORMANCE_ANALYSIS_TERRAIN_H
 #define PATHFINDING_PERFORMANCE_ANALYSIS_TERRAIN_H
 
-
 class terrain {
     int graphIndex;
     unordered_map<int, vector<pair<int,float>>> adjacencyList;
@@ -28,6 +27,4 @@ public:
 
     vector<vector<int>> createNodes(int rows, int cols);
 };
-
-
 #endif //PATHFINDING_PERFORMANCE_ANALYSIS_TERRAIN_H
