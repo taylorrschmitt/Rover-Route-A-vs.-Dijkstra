@@ -33,6 +33,7 @@ int main() {
     graph.createNodes(rows, columns);
     cout << endl;
 
+    //dijkstra testing
     Dijkstra testDijkstra(rows,columns,graph);
     vector<pair<int, int>> path = testDijkstra.getShortestPath(from, to);
 
@@ -43,8 +44,19 @@ int main() {
     cout << endl;
     cout << "Shortest Distance: " <<  testDijkstra.getShortestDistance(from, to) << endl;
 
+    //Astar testing
     Astar testAstar;
+    vector<pair<int, int>> AStarCoords = testAstar.findPath(from, to);
+    pair<int, int> fromCoord = AStarCoords.at(0);
+    pair<int, int> toCoord = AStarCoords.at(1);
+    vector<pair<int, int>> AstarPath = testAstar.algorithm(graph, fromCoord, toCoord);
 
+    cout << "A* shortest path: " << endl;
+    for(int i = 0; i < AstarPath.size(); i++) {
+        cout << "[" << AstarPath.at(i).first << ", " << AstarPath.at(i).second << "] ->";
+    }
+    cout << endl;
+    cout << "Total Distance: " << testAstar.getTotalDistance(AstarPath, graph) << endl;
 
     return 0;
 }
