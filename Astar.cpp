@@ -41,6 +41,12 @@ float Astar::predictHeuristic(pair<float, int> currNode, pair<float, int> destNo
 }
 
 vector<pair<int,int>> Astar::algorithm(terrain &graph, pair<int,int> start, pair<int,int> dest) {
+    //clearing old data:
+    nodeInfo.clear();
+    while (!openList.empty()) openList.pop();
+    closedList.clear();
+
+    //algorithm starts
     int begin = graph.getIndexCoordinate(start);
     int end = graph.getIndexCoordinate(dest);
 
@@ -58,8 +64,8 @@ vector<pair<int,int>> Astar::algorithm(terrain &graph, pair<int,int> start, pair
         if (currentNode == end) {
             vector<pair<int, int>> indices = newPath(start, dest, graph);
             vector<pair<int, int>> coordinates;
-            for (int i = 0; i < indices.size(); i++) {
-                coordinates.push_back(graph.getCoordFromIndex(i));
+            for (auto &index : indices) {
+                coordinates.push_back(index);
             }
             return coordinates;
         }
@@ -119,7 +125,7 @@ float Astar::getHeuristic(pair<int, int> currNode, pair<int, int> destNode) {
 float Astar::getTotalDistance(vector<pair<int, int>> &path, terrain &graph) {
     float totalDistance = 0;
 
-    for (int i = 0; i < path.size(); i++) {
+    for (int i = 1; i < path.size(); i++) {
         int fromIndex = graph.getIndexCoordinate(path[i-1]);
         int toIndex = graph.getIndexCoordinate(path[i]);
 

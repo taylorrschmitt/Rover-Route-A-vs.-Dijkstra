@@ -44,8 +44,10 @@ int main() {
     }
     cout << endl;
     cout << "Shortest Distance: " <<  testDijkstra.getShortestDistance(from, to) << endl;
+    cout << endl;
 
     graph.printAdjacencyList();
+
     //Astar testing
     Astar testAstar;
     vector<pair<int, int>> AStarCoords = testAstar.findPath(from, to);
@@ -53,12 +55,17 @@ int main() {
     pair<int, int> toCoord = AStarCoords.at(1);
     vector<pair<int, int>> AstarPath = testAstar.algorithm(graph, fromCoord, toCoord);
 
-    cout << "A* shortest path: " << endl;
-    for(int i = 0; i < AstarPath.size(); i++) {
-        cout << "[" << AstarPath.at(i).first << ", " << AstarPath.at(i).second << "] ->";
+    if (AstarPath.empty()) {
+        cout << "No path found by A*." << endl;
+    } else {
+        cout << "A* shortest path: " << endl;
+        for (const auto& p : AstarPath) {
+            cout << "[" << p.first << ", " << p.second << "] ->";
+        }
+        cout << endl;
+        cout << "Total Cost: " << testAstar.getTotalDistance(AstarPath, graph) << endl;
     }
-    cout << endl;
-    cout << "Total Distance: " << testAstar.getTotalDistance(AstarPath, graph) << endl;
+
 
     return 0;
 }
