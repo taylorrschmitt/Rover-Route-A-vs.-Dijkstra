@@ -16,7 +16,6 @@ using namespace std;
 #define PATHFINDING_PERFORMANCE_ANALYSIS_DIJKSTRA_H
 
 class Dijkstra {
-    float shortestPath;
     int vertexNum;
     int* predecessors;
     float* distances;
