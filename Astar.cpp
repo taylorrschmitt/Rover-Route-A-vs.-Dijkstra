@@ -9,11 +9,12 @@
 using namespace std;
 
 
-vector<pair<int, int>> Astar::newPath(int start, int dest, terrain &graph) {
+vector<pair<int, int>> Astar::newPath(pair<int, int> start, pair<int, int> dest, terrain &graph) {
     vector<pair<int, int>> path;
-    int current = dest;
-    while (current != start) {
-        path.push_back(graph.mapper[current]);
+    int current = graph.getIndexCoordinate(dest);
+    int startIndex = graph.getIndexCoordinate(start);
+    while (current != startIndex) {
+        path.push_back(graph.getCoordFromIndex(current));
         current = nodeInfo[current].parent;
     }
     path.push_back(start);
@@ -21,13 +22,14 @@ vector<pair<int, int>> Astar::newPath(int start, int dest, terrain &graph) {
     return path;
 }
 
-float Astar::predictHeruistic(pair<float, int> currNode, pair<float, int> destNode) {
+float Astar::predictHeuristic(pair<float, int> currNode, pair<float, int> destNode) {
     return sqrt(pow(currNode.first - destNode.first, 2) + pow(currNode.second - destNode.second, 2));
 }
 
 vector<pair<int,int>> Astar::findPath(terrain &graph, pair<int,int> start, pair<int,int> dest) {
-    int begin = graph.reverseMapper[start];
-    int end = graph.reverseMapper[dest];
+    int begin = graph.getIndexCoordinate(start);
+    int end = graph.getIndexCoordinate(dest);
+
     nodeInfo[begin] = {0.0f, 0.0f, predictHeuristic(start, dest), -1};
 
     openList.push({nodeInfo[begin].f, begin});
@@ -40,17 +42,17 @@ vector<pair<int,int>> Astar::findPath(terrain &graph, pair<int,int> start, pair<
 
         //reached the end of the path
         if (currentNode == end) {
-            vector<int> indices = newPath(begin, end, graph);
-            vector<vector<int, int>> coordinates;
+            vector<pair<int, int>> indices = newPath(start, dest, graph);
+            vector<pair<int, int>> coordinates;
             for (int i = 0; i < indices.size(); i++) {
-                coordinates.push_back(graph.mapper[i]);
+                coordinates.push_back(graph.getCoordFromIndex(i));
             }
             return coordinates;
         }
 
         closedList.insert(currentNode);
 
-        for (auto &edge : graph.adjacencyList[currNode]) {
+        for (auto &edge : graph.getNeighbors(currentNode)) {
             int nextNode = edge.first;
             float weight = edge.second;
 
@@ -58,10 +60,10 @@ vector<pair<int,int>> Astar::findPath(terrain &graph, pair<int,int> start, pair<
                 continue;
             }
 
-            float gCost = nodeInfo[currNode].g + weight;
+            float gCost = nodeInfo[currentNode].g + weight;
             //if neighbor is unseen or there's a cheaper path found
             if (!nodeInfo.count(nextNode) || gCost < nodeInfo[nextNode].g) {
-                nodeInfo[nextNode].heuristic = predictHeuristic(graph.mapper[nextNode], dest);
+                nodeInfo[nextNode].heuristic = predictHeuristic(graph.getCoordFromIndex(nextNode), dest);
                 nodeInfo[nextNode].g = gCost;
                 nodeInfo[nextNode].f = nodeInfo[nextNode].g + nodeInfo[nextNode].heuristic;
                 nodeInfo[nextNode].parent = currentNode;

@@ -130,3 +130,15 @@ void terrain::printAdjacencyList(){
         cout << endl;
     }
 }
+
+int terrain::getIndexCoordinate(pair<int, int> cord) const {
+    return reverseMapper.at(cord);
+}
+
+pair<int, int> terrain::getCoordFromIndex(int index) const {
+    return mapper.at(index);
+}
+
+const vector<pair<int, float>>& terrain::getNeighbors(int index) {
+    return adjacencyList.at(index);
+}

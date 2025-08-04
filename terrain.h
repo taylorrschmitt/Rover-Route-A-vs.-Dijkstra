@@ -22,6 +22,9 @@ public:
     void populateVertex(int x, int y, vector<vector<int>>& grid);
 
     void printAdjacencyList();
+    int getIndexCoordinate(pair<int, int> cord) const;
+    pair<int, int> getCoordFromIndex(int index) const;
+    const vector<pair<int, float>> &getNeighbors(int index);
 
     vector<vector<int>> createNodes(int rows, int cols);
 };
