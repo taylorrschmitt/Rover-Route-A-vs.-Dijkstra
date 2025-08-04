@@ -8,6 +8,13 @@
 #include <cmath>
 using namespace std;
 
+Astar::Astar() {
+    while (!openList.empty()) {
+        openList.pop();
+    }
+    closedList.clear();
+    nodeInfo.clear();
+}
 
 vector<pair<int, int>> Astar::newPath(pair<int, int> start, pair<int, int> dest, terrain &graph) {
     vector<pair<int, int>> path;
