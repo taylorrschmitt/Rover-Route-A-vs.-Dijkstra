@@ -92,9 +92,17 @@ void terrain::populateGraph(vector<vector<int>> grid){
 }
 
 void terrain::populateHelper(pair<int, int> from, pair<int, int> to, vector<vector<int>>& grid, float factor){
-
-   //Make a new vertex from "from" to "to"
     populateVertex(to.first, to.second, grid);
+    //Check if there already is an edge from "from" to "to"
+    for(auto it = adjacencyList.begin(); it!= adjacencyList.end(); it++){
+        for(int i = 0; i < it->second.size(); i++){
+            if(it->second.at(i).first == reverseMapper[to]){
+                return;
+            }
+        }
+    }
+
+    //Make a new vertex from "from" to "to"
     pair<int, float> newEdge;
     newEdge.first = reverseMapper[to];
     newEdge.second = grid[to.second][to.first] * factor;

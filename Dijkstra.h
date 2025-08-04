@@ -29,7 +29,6 @@ public:
 
     //Actual Dijkstra's algorithm and helper functions
     void algorithm(int root);
-    float updateDistance(int to, int from);
 
     //functions that will be used in main to output
     float getShortestDistance(string from, string to);

@@ -30,24 +30,34 @@ void Dijkstra::algorithm(int root) {
     visited.insert(root);
     set<int> notVisited;
 
+    //start with root's neighbors
+    distances[root] = 0;
+    for(int i = 0; i < adjacencyList[root].size(); i++){
+        distances[adjacencyList[root].at(i).first] = adjacencyList[root].at(i).second;
+        predecessors[adjacencyList[root].at(i).first] = root;
+        notVisited.insert(adjacencyList[root].at(i).first);
+    }
+
     //filling up the not visited set for the first iteration, updating distance of all vertices adjacent to root
     for(auto it = adjacencyList.begin(); it != adjacencyList.end(); it++){
-        if(root != it->first){
+        if(it->first != root && notVisited.find(it->first) == notVisited.end()) {
             notVisited.insert(it->first);
         }
-        if(updateDistance(root, it->first) != 0){
-            distances[it->first] = updateDistance(root, it->first);
-            predecessors[it->first] = root;
-        }
     }
+
     while(!notVisited.empty()){
         //Finding u with smallest distance from root
         float smallestDist = 10000000.0;
-        int u;
+        int u = -1;
+
         for(auto it = notVisited.begin(); it != notVisited.end(); it++){
             if(distances[*it] < smallestDist){
                 u = *it;
+                smallestDist = distances[*it];
             }
+        }
+        if(u == -1){
+            break;
         }
         notVisited.erase(u);
         visited.insert(u);
@@ -63,21 +73,6 @@ void Dijkstra::algorithm(int root) {
             }
         }
     }
-}
-
-float Dijkstra::updateDistance(int to, int from){
-
-    //Helper function for algorithm
-    for(auto it = adjacencyList.begin(); it != adjacencyList.end(); it++){
-        if(it->first == from){
-            for(int i = 0; i < it->second.size(); i++){
-                if(it->second.at(i).first == to){
-                    return it->second.at(i).second;
-                }
-            }
-        }
-    }
-    return 0;
 }
 
 vector<pair<int,int>> Dijkstra::getShortestPath(string from, string to){
@@ -109,6 +104,7 @@ vector<pair<int,int>> Dijkstra::getShortestPathHelper(int root, int destination)
         pathStack.push(mapper[currVertex]);
         currVertex = predecessors[currVertex];
     }
+    pathStack.push(mapper[root]);
 
     //reverse stack onto a vector
     while(!pathStack.empty()){
@@ -135,13 +131,5 @@ float Dijkstra::getShortestDistance(std::string from, std::string to) {
 
 float Dijkstra::getShortestDistanceHelper(int root, int destination){
     algorithm(root);
-
-    //iterate through path and add up the distance until you find root
-    float distance = 0.0;
-    int currVertex = destination;
-    while(currVertex != root){
-        distance += distances[currVertex];
-        currVertex = predecessors[currVertex];
-    }
-    return distance;
+    return distances[destination];
 }
