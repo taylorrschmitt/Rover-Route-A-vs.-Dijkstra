@@ -5,6 +5,7 @@
 #include "Astar.h"
 #include <algorithm>
 #include <unordered_map>
+#include <cmath>
 using namespace std;
 
 
@@ -21,7 +22,7 @@ vector<pair<int, int>> Astar::newPath(int start, int dest, terrain &graph) {
 }
 
 float Astar::predictHeruistic(pair<float, int> currNode, pair<float, int> destNode) {
-    sqrt(pwr(currNode.first - destNode.first, 2) + pow(currNode.second - destNode.second, 2));
+    return sqrt(pow(currNode.first - destNode.first, 2) + pow(currNode.second - destNode.second, 2));
 }
 
 vector<pair<int,int>> Astar::findPath(terrain &graph, pair<int,int> start, pair<int,int> dest) {
