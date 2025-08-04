@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <unordered_map>
 #include <cmath>
+#include <sstream>
 using namespace std;
 
 Astar::Astar() {
@@ -39,7 +40,7 @@ float Astar::predictHeuristic(pair<float, int> currNode, pair<float, int> destNo
     return heuristic;
 }
 
-vector<pair<int,int>> Astar::findPath(terrain &graph, pair<int,int> start, pair<int,int> dest) {
+vector<pair<int,int>> Astar::algorithm(terrain &graph, pair<int,int> start, pair<int,int> dest) {
     int begin = graph.getIndexCoordinate(start);
     int end = graph.getIndexCoordinate(dest);
 
@@ -88,4 +89,47 @@ vector<pair<int,int>> Astar::findPath(terrain &graph, pair<int,int> start, pair<
 
     //else, no path was found
     return{};
+}
+
+vector<pair<int, int>> Astar::findPath(string source, string dest) {
+    //taking the user input (a string) and turning it into a pair of ints to be able to use in my algorithm funciton
+    vector<pair<int, int>> toAndFrom;
+
+    //from coordinates
+    stringstream fromstream(source);
+    int x, y;
+    char characters;
+    fromstream >> characters >> x >> characters >> y >> characters;
+    pair<int, int> from(x, y);
+    toAndFrom.push_back(from);
+
+    //to coordinates
+    stringstream tostream(dest);
+    tostream >> characters >> x >> characters >> y >> characters;
+    pair<int, int> to(x, y);
+    toAndFrom.push_back(to);
+
+    return toAndFrom;
+}
+
+float Astar::getHeuristic(pair<int, int> currNode, pair<int, int> destNode) {
+    return predictHeuristic(currNode, destNode);
+}
+
+float Astar::getTotalDistance(vector<pair<int, int>> &path, terrain &graph) {
+    float totalDistance = 0;
+
+    for (int i = 0; i < path.size(); i++) {
+        int fromIndex = graph.getIndexCoordinate(path[i-1]);
+        int toIndex = graph.getIndexCoordinate(path[i]);
+
+        auto &neighbors = graph.getNeighbors(fromIndex);
+        for (auto &edge : neighbors) {
+            if (edge.first == toIndex) {
+                totalDistance += edge.second;
+                break;
+            }
+        }
+    }
+    return totalDistance;
 }

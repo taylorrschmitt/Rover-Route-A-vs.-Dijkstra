@@ -132,6 +132,7 @@ float Dijkstra::getShortestDistance(std::string from, std::string to) {
 
     return getShortestDistanceHelper(reverseMapper[fromCoords], reverseMapper[toCoords]);
 }
+
 float Dijkstra::getShortestDistanceHelper(int root, int destination){
     algorithm(root);
 
