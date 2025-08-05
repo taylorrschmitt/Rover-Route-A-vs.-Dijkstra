@@ -82,8 +82,6 @@ int main() {
     cout << endl;
     cout << "Shortest Distance: " <<  testDijkstra.getShortestDistance(from, to) << endl;
     cout << endl;
-
-    graph.printAdjacencyList();
     cout << endl;
 
     //Astar testing
@@ -108,7 +106,7 @@ int main() {
 
     cout << endl;
 
-    graph.printAdjacencyList();
+    //graph.printAdjacencyList();
 
 
     //sf::RenderWindow window(sf::VideoMode({static_cast<unsigned>(columns * 20), static_cast<unsigned>(rows * 20)}), "A* Path");

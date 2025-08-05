@@ -62,7 +62,7 @@ vector<pair<int,int>> Astar::algorithm(terrain &graph, pair<int,int> start, pair
         int currentNode = currNode.second;
         openList.pop();
 
-        cout << "Exploring node index: " << currentNode << " (coord: " << graph.getCoordFromIndex(currentNode).first << ", " << graph.getCoordFromIndex(currentNode).second << ")" << endl;
+        //cout << "Exploring node index: " << currentNode << " (coord: " << graph.getCoordFromIndex(currentNode).first << ", " << graph.getCoordFromIndex(currentNode).second << ")" << endl;
 
 
         //reached the end of the path
