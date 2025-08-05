@@ -46,67 +46,91 @@ using namespace std;
 // }
 
 int main() {
-    int rows, columns;
-    string from, to;
+    while(true){
+        int rows, columns;
+        string from, to;
+        terrain graph;
 
-    cout << "Please enter the number of rows: ";
-    cin >> rows;
-    cout << endl;
+        cout << "Please enter the number of rows and columns: ";
+        cin >> rows;
+        columns = rows;
 
-    cout << "Please enter the number of columns: " ;
-    cin >> columns;
-    cout << endl;
+        cout << "From: ";
+        cin >> from;
 
-    cout << "From: ";
-    cin >> from;
-    cout << endl;
+        cout << "To: ";
+        cin >> to;
 
-    cout << "To: ";
-    cin >> to;
-    cout << endl;
+        stringstream fromStream(from);
+        int xFrom, yFrom, xTo, yTo;
+        char dummy;
 
-    terrain graph;
-    vector<vector<int>> grid = graph.createNodes(rows, columns);
-    graph.populateGraph(grid);
-    cout << endl;
+        fromStream >> dummy >> xFrom >> dummy >> yFrom >> dummy;
+        pair<int, int> fromCoords(xFrom,yFrom);
 
-    //dijkstra testing
-    Dijkstra testDijkstra(rows,columns,graph);
-    vector<pair<int, int>> path = testDijkstra.getShortestPath(from, to);
+        stringstream toStream(to);
+        toStream >> dummy >> xTo >> dummy >> yTo >> dummy;
+        pair<int, int> toCoords(xTo,yTo);
 
-    cout << "Dijkstra's shortest path: " << endl;
-    for(int i = 0; i < path.size(); i++){
-        cout << "[" << path.at(i).first << ", " << path.at(i).second << "] ->";
-    }
-    //cout << " End" << endl;
-    cout << endl;
-    cout << "Shortest Distance: " <<  testDijkstra.getShortestDistance(from, to) << endl;
-    cout << endl;
-    cout << endl;
-
-    //Astar testing
-    Astar testAstar;
-
-    vector<pair<int, int>> AStarCoords = testAstar.findPath(from, to);
-    pair<int, int> fromCoord = AStarCoords.at(0);
-    pair<int, int> toCoord = AStarCoords.at(1);
-    vector<pair<int, int>> AstarPath = testAstar.algorithm(graph, fromCoord, toCoord);
-
-    if (AstarPath.empty()) {
-        cout << "No path found by A*." << endl;
-    } else {
-        cout << "A* shortest path: " << endl;
-        for (const auto &p : AstarPath) {
-            cout << "[" << p.first << ", " << p.second << "] ->";
+        if(xFrom < 0 || xFrom >= columns || xTo < 0 || xTo >= columns || yFrom < 0 || yFrom >= rows || yTo < 0 || yTo >= rows){
+            cout << "Coordinates outside of range" << endl;
+            cout << endl;
+            continue;
         }
-        cout << " End" << endl;
+
+        vector<vector<int>> grid = graph.createNodes(rows, columns);
+        graph.populateGraph(grid);
         cout << endl;
-        cout << "Total Cost: " << testAstar.getTotalDistance(AstarPath, graph) << endl;
+
+        Dijkstra DAlg(rows,columns,graph);
+        vector<pair<int, int>> path = DAlg.getShortestPath(from, to);
+
+        cout << "Dijkstra's shortest path: " << endl;
+        for(int i = 0; i < path.size() - 1; i++){
+            cout << "[" << path.at(i).first << ", " << path.at(i).second << "] ->";
+        }
+        cout<<"[" << path.at(path.size()-1).first << ", " << path.at(path.size()-1).second << "] " << endl;
+
+        cout << "Shortest Distance: " <<  DAlg.getShortestDistance(from, to) << endl;
+        cout <<endl;
+
+        Astar AAlg;
+
+        vector<pair<int, int>> AStarCoords = AAlg.findPath(from, to);
+        pair<int, int> fromCoord = AStarCoords.at(0);
+        pair<int, int> toCoord = AStarCoords.at(1);
+        vector<pair<int, int>> AstarPath = AAlg.algorithm(graph, fromCoord, toCoord);
+
+        if (AstarPath.empty()) {
+            cout << "No path found by A*." << endl;
+        } else {
+            cout << "A* shortest path: " << endl;
+            for (const auto &p : AstarPath) {
+                cout << "[" << p.first << ", " << p.second << "] ->";
+            }
+            cout << " End" << endl;
+            cout << endl;
+            cout << "Total Cost: " << AAlg.getTotalDistance(AstarPath, graph) << endl;
+        }
+        cout << endl;
+
+        string printList;
+        cout << "Print Adjacency List? : Y/N" << endl;
+        cin >> printList;
+        if(printList == "Y"){
+            graph.printAdjacencyList();
+        }
+
+        string cont;
+        cout << "Continue?: Y/N" << endl;
+        cin >> cont;
+        if(cont == "Y"){
+            continue;
+        }else{
+            break;
+        }
+
     }
-
-    cout << endl;
-
-    //graph.printAdjacencyList();
 
 
     //sf::RenderWindow window(sf::VideoMode({static_cast<unsigned>(columns * 20), static_cast<unsigned>(rows * 20)}), "A* Path");

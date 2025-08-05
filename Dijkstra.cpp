@@ -83,13 +83,10 @@ vector<pair<int,int>> Dijkstra::getShortestPath(string from, string to){
     fromStream >> dummy >> xFrom >> dummy >> yFrom >> dummy;
     pair<int, int> fromCoords(xFrom,yFrom);
 
-    cout << "[" << xFrom << "," << yFrom << "]" <<endl;
-
     stringstream toStream(to);
     toStream >> dummy >> xTo >> dummy >> yTo >> dummy;
     pair<int, int> toCoords(xTo,yTo);
 
-    cout << "[" << xTo << "," << yTo << "]" <<endl;
     return getShortestPathHelper(reverseMapper[fromCoords], reverseMapper[toCoords]);
 }
 
