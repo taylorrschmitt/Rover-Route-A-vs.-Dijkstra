@@ -23,7 +23,7 @@ sf::Color tileColors(int weight) {
     }
 }
 
-void drawGrid(sf::RenderWindow &window, const vector<vector<int>> &grid, const vector<vector<int>> &pathCoords = {}) {
+void drawGrid(sf::RenderWindow &window, const vector<vector<int>> &grid, const vector<pair<int, int>> &pathCoords = {}) {
     int tileSize = 20;
     for (int row = 0; row< grid.size(); row++) {
         for (int col = 0; col< grid[0].size(); col++) {
@@ -110,5 +110,31 @@ int main() {
 
     graph.printAdjacencyList();
 
+
+    //sf::RenderWindow window(sf::VideoMode({static_cast<unsigned>(columns * 20), static_cast<unsigned>(rows * 20)}), "A* Path");
+
+    sf::Font font;
+    if (!font.openFromFile("arial.ttf")) {
+        std::cerr << "Error loading font\n";
+    }
+
+    string costStr = "Cost: " + to_string(testAstar.getTotalDistance(AstarPath, graph));
+    sf::Text costText(font, costStr, 20);
+    costText.setFillColor(sf::Color::Black);
+    costText.setPosition(sf::Vector2f(10, rows * 20 + 5));
+
+    // sf::Event event;
+    //
+    // while (window.isOpen()) {
+    //     while (window.pollEvent(event)) {
+    //         if (event.type == sf::Event::Closed())
+    //             window.close();
+    //     }
+    //
+    //     window.clear();
+    //     drawGrid(window, grid, AstarPath);
+    //     window.draw(costText);
+    //     window.display();
+    // }
     return 0;
 }
