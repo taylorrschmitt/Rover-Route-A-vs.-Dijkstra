@@ -43,11 +43,11 @@ When running the program:
 
 Algorithm Details:
 A* ~
-Uses Euclidean distance as heuristic
+Uses Euclidean distance as heuristic,
 Prioritizes nodes with lowest f = g + h cost
 
 Dijkstra ~
-Uniform-cost search
+Uniform-cost search,
 Explores all shortest paths exhaustively (no heuristic)
 
 
