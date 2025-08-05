@@ -14,27 +14,17 @@ Features:
    - Dijkstra’s path
    - A*’s path
 - Display total cost of path
-- Highlight chosen path and terrain using colored tiles
+- Highlight chosen path
 
-Grid Visualization (via SFML):
-Each cell is color-coded:
-- White: Clear path (0)
-- Light Green → Red: Increasing obstacle weight (1–6)
-- Cyan: Cells included in the path
-- Additional text display shows the final cost of the path
 
 Setup Instructions:
 1. Clone the repo:
 - git clone https://github.com/yourusername/rover-route-pathfinding.git
 - cd rover-route-pathfinding
-2. Install SFML 3.0.0
-- Use the MinGW-w64 version
-- Update CMakeLists.txt with the correct SFML_DIR path
-3. Open in CLion or build via CMake:
+2. Open in CLion or build via CMake:
 - mkdir build && cd build
 - cmake ..
 - make
-4. Make sure arial.ttf is in the root directory (for text rendering)
 
 When running the program:
 - Enter the number of rows and columns
@@ -52,7 +42,7 @@ Explores all shortest paths exhaustively (no heuristic)
 
 
 Future Improvements!!!
-1. Add frame-by-frame animation of the algorithms
+1. Add a better display of the algorithms at worrk, ideally using SFML
 2. Show explored nodes
 3. Benchmark performance on larger grids
 4. Add user-selectable heuristics for A*
