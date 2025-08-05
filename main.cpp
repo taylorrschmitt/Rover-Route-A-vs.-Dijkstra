@@ -47,10 +47,10 @@ int main() {
     cout << "Shortest Distance: " <<  testDijkstra.getShortestDistance(from, to) << endl;
     cout << endl;
 
-    graph.printAdjacencyList();
     cout << endl;
 
-    //Astar testing
+    graph.printAdjacencyList();
+    /*
     Astar testAstar;
 
     vector<pair<int, int>> AStarCoords = testAstar.findPath(from, to);
@@ -69,10 +69,8 @@ int main() {
         cout << endl;
         cout << "Total Cost: " << testAstar.getTotalDistance(AstarPath, graph) << endl;
     }
-
+    */
     cout << endl;
-
-    graph.printAdjacencyList();
 
     return 0;
 }

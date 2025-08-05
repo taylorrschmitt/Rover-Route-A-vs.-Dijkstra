@@ -6,7 +6,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <ctime>
+#include <random>
 using namespace std;
 
 terrain::terrain() {
@@ -15,78 +15,52 @@ terrain::terrain() {
 
 void terrain::populateGraph(vector<vector<int>> grid){
 
+    random_device rd;
+    mt19937 gen(rd());
+
+    //creating vectors for the coordinates of directions and their weights
+    vector<pair<int, int>> directions = {
+            {0, -1},  {1, -1},  {1, 0},  {1, 1}, {0, 1},   {-1, 1},  {-1, 0}, {-1, -1}
+    };
+
+    vector<float> directionWeights = {
+            1.0, 1.41, 1.0, 1.41, 1.0, 1.41, 1.0, 1.41
+    };
+
     //Iterate through all the cells in our grid -> for each cell make edges in the graph to all teh cells around it
     int VertexNum;
     pair<int,int> to;
-    pair<int, int> from;
     for(int i = 0; i < grid.size(); i++){
         for(int j = 0; j < grid.at(i).size(); j++) {
             populateVertex(j,i, grid);
             pair<int, int> from = {j,i};
 
-            //creating vectors for the coordinates of directions and their weights
-            vector<pair<int, int>> directions = {
-                {0, -1},  {1, -1},  {1, 0},  {1, 1}, {0, 1},   {-1, 1},  {-1, 0}, {-1, -1}
-            };
-            vector<float> directionWeights = {
-                1.0, 1.41, 1.0, 1.41, 1.0, 1.41, 1.0, 1.41
-            };
-            //randomizing the direction of edges and the number of edges for each vertex
-            vector<int> edgeDirections = {0,1,2,3,4,5,6,7};
-            random_shuffle(edgeDirections.begin(), edgeDirections.end());
-            int numOfEdges = rand() % 6;
+            vector<int> edgeDirections;
+            for(int k = 0; k < directions.size(); k++){
+                int newX = j + directions[k].first;
+                int newY = i + directions[k].second;
+
+                if(newX >= 0 && newX < grid[0].size() && newY >= 0 && newY < grid.size()){
+                    edgeDirections.push_back(k);
+                }
+            }
+
+            shuffle(edgeDirections.begin(), edgeDirections.end(), gen);
+            int maxEdges = edgeDirections.size();
+            if(maxEdges == 0){
+                continue;
+            }
+
+            int numOfEdges = uniform_int_distribution<>(1,maxEdges)(gen);
 
             for (int k = 0; k < numOfEdges; k++) {
                 int newDirec = edgeDirections[k];
                 int newX = directions[newDirec].first + j;
                 int newY = directions[newDirec].second + i;
 
-                if (newX >= 0 && newX < grid[0].size() && newY >= 0 && newY < grid.size()) {
-                    pair<int, int> to = {newX, newY};
-                    populateHelper(from, to, grid, directionWeights[newDirec]);
-                }
+                pair<int, int> to = {newX, newY};
+                populateHelper(from, to, grid, directionWeights[newDirec]);
             }
-
-            // if(i != 0) {
-            //     //top
-            //     to = {j, i - 1};
-            //     populateHelper(from, to, grid, 1);
-            // }
-            // if(i != 0 && j != grid.at(i).size() -1) {
-            //     //top-right
-            //     to = {j + 1, i - 1};
-            //     populateHelper(from, to, grid, 1.41);
-            // }
-            // if(j != grid.at(i).size() - 1) {
-            //     //right
-            //     to = {j + 1, i};
-            //     populateHelper(from, to, grid, 1);
-            // }
-            // if(j != grid.at(i).size() - 1 && i != grid.size() - 1) {
-            //     //bottom right
-            //     to = {j + 1, i + 1};
-            //     populateHelper(from, to, grid, 1.41);
-            // }
-            // if(i != grid.size() - 1) {
-            //     //bottom
-            //     to = {j, i + 1};
-            //     populateHelper(from, to, grid, 1);
-            // }
-            // if(i != grid.size() -  1 && j != 0) {
-            //     //bottom left
-            //     to = {j - 1, i + 1};
-            //     populateHelper(from, to, grid, 1.41);
-            // }
-            // if(j != 0) {
-            //     //left
-            //     to = {j - 1, i};
-            //     populateHelper(from, to, grid, 1);
-            // }
-            // if(j != 0 && i != 0) {
-            //     //top left
-            //     to = {j - 1, i - 1};
-            //     populateHelper(from, to, grid, 1.41);
-            // }
         }
     }
 }
@@ -94,11 +68,9 @@ void terrain::populateGraph(vector<vector<int>> grid){
 void terrain::populateHelper(pair<int, int> from, pair<int, int> to, vector<vector<int>>& grid, float factor){
     populateVertex(to.first, to.second, grid);
     //Check if there already is an edge from "from" to "to"
-    for(auto it = adjacencyList.begin(); it!= adjacencyList.end(); it++){
-        for(int i = 0; i < it->second.size(); i++){
-            if(it->second.at(i).first == reverseMapper[to]){
-                return;
-            }
+    for(int i = 0; i < adjacencyList[reverseMapper[from]].size(); i++){
+        if(adjacencyList[reverseMapper[from]].at(i).first == reverseMapper[to]){
+            return;
         }
     }
 
@@ -123,12 +95,13 @@ void terrain::populateVertex(int x, int y, vector<vector<int>>& grid){
 
 vector<vector<int>> terrain::createNodes(int rows, int cols){
     vector<vector<int>> grid(rows, vector<int> (cols));
-    srand(time(0));
+    random_device rd;
+    mt19937 gen(rd());
 
     //creating 2d vector of nodes with values ranging from 0-5 for type of obstacle
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
-            int value = rand() % 6 + 1;
+            int value = uniform_int_distribution<>(1,5)(gen);
             grid[i][j] = value;
         }
     }
@@ -142,7 +115,6 @@ vector<vector<int>> terrain::createNodes(int rows, int cols){
     }
 
     populateGraph(grid);
-
     return grid;
 }
 

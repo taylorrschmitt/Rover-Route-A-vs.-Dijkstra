@@ -95,12 +95,22 @@ vector<pair<int,int>> Dijkstra::getShortestPath(string from, string to){
 
 vector<pair<int,int>> Dijkstra::getShortestPathHelper(int root, int destination) {
     algorithm(root);
+
+    if(predecessors[destination] == -1){
+        cout << "Not reachable!" << endl;
+        return {};
+    }
+
     stack<pair<int,int>> pathStack;
     vector<pair<int,int>> path;
 
     //go through predecessors to find path and place on stack
     int currVertex = destination;
     while(currVertex != root){
+        if(predecessors[currVertex] == -1){
+            cout << "No path" << endl;
+            return{};
+        }
         pathStack.push(mapper[currVertex]);
         currVertex = predecessors[currVertex];
     }
