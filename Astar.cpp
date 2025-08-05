@@ -10,6 +10,7 @@
 #include <iostream>
 using namespace std;
 
+//constructor
 Astar::Astar() {
     while (!openList.empty()) {
         openList.pop();
@@ -18,6 +19,7 @@ Astar::Astar() {
     nodeInfo.clear();
 }
 
+//returns the path taken as a vector of coordinates
 vector<pair<int, int>> Astar::newPath(pair<int, int> start, pair<int, int> dest, terrain &graph) {
     vector<pair<int, int>> path;
     int current = graph.getIndexCoordinate(dest);
@@ -37,6 +39,7 @@ vector<pair<int, int>> Astar::newPath(pair<int, int> start, pair<int, int> dest,
 
 float Astar::predictHeuristic(pair<float, int> currNode, pair<float, int> destNode) {
     //using the pythagorean theorem since our grid is theoretically all diagonals right now for data simplicity
+
     float heuristic = sqrt(pow(currNode.first - destNode.first, 2) + pow(currNode.second - destNode.second, 2));
     return heuristic;
 }
@@ -50,7 +53,6 @@ vector<pair<int,int>> Astar::algorithm(terrain &graph, pair<int,int> start, pair
     //algorithm starts
     int begin = graph.getIndexCoordinate(start);
     int end = graph.getIndexCoordinate(dest);
-    //cout << "A* start index: " << begin << ", end index: " << end << endl;
 
     //assigning node data and pushing it to the priority queue
     nodeInfo[begin] = {0.0f, 0.0f, predictHeuristic(start, dest), -1};
@@ -61,9 +63,6 @@ vector<pair<int,int>> Astar::algorithm(terrain &graph, pair<int,int> start, pair
         float fCost = currNode.first;
         int currentNode = currNode.second;
         openList.pop();
-
-        //cout << "Exploring node index: " << currentNode << " (coord: " << graph.getCoordFromIndex(currentNode).first << ", " << graph.getCoordFromIndex(currentNode).second << ")" << endl;
-
 
         //reached the end of the path
         if (currentNode == end) {
@@ -103,7 +102,7 @@ vector<pair<int,int>> Astar::algorithm(terrain &graph, pair<int,int> start, pair
 }
 
 vector<pair<int, int>> Astar::findPath(string source, string dest) {
-    //taking the user input (a string) and turning it into a pair of ints to be able to use in my algorithm funciton
+    //taking the user input (a string) and turning it into a pair of ints to be able to use in my algorithm function
     vector<pair<int, int>> toAndFrom;
 
     //from coordinates
@@ -123,6 +122,8 @@ vector<pair<int, int>> Astar::findPath(string source, string dest) {
     return toAndFrom;
 }
 
+
+//getter functions
 float Astar::getHeuristic(pair<int, int> currNode, pair<int, int> destNode) {
     return predictHeuristic(currNode, destNode);
 }
@@ -130,11 +131,13 @@ float Astar::getHeuristic(pair<int, int> currNode, pair<int, int> destNode) {
 float Astar::getTotalDistance(vector<pair<int, int>> &path, terrain &graph) {
     float totalDistance = 0;
 
+    //starting form 1 instead of 0 so that it doesn't access an index that doesn't exist
     for (int i = 1; i < path.size(); i++) {
         int fromIndex = graph.getIndexCoordinate(path[i-1]);
         int toIndex = graph.getIndexCoordinate(path[i]);
 
         auto &neighbors = graph.getNeighbors(fromIndex);
+
         for (auto &edge : neighbors) {
             if (edge.first == toIndex) {
                 totalDistance += edge.second;
@@ -142,5 +145,6 @@ float Astar::getTotalDistance(vector<pair<int, int>> &path, terrain &graph) {
             }
         }
     }
+
     return totalDistance;
 }

@@ -28,10 +28,10 @@ class Astar {
 
     public:
         Astar();
-
         vector<pair<int,int>> algorithm(terrain &graph, pair<int,int> start, pair<int,int> goal);
         vector<pair<int, int>> findPath(string source, string dest);
 
+        //getters
         float getHeuristic(pair<int, int> currNode, pair<int, int> destNode);
         float getTotalDistance(vector<pair<int, int>> &path, terrain &graph);
 };
