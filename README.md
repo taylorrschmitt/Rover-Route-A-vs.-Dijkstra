@@ -11,8 +11,8 @@ Features:
 - Generate a random weighted grid map
 - Assign obstacle weights from 0 (no obstacle) to 6 (impassable)
 - Compute and visualize:
-   Dijkstra’s path
-   A*’s path
+   - Dijkstra’s path
+   - A*’s path
 - Display total cost of path
 - Highlight chosen path and terrain using colored tiles
 
@@ -25,15 +25,15 @@ Each cell is color-coded:
 
 Setup Instructions:
 1. Clone the repo:
-git clone https://github.com/yourusername/rover-route-pathfinding.git
-cd rover-route-pathfinding
+- git clone https://github.com/yourusername/rover-route-pathfinding.git
+- cd rover-route-pathfinding
 2. Install SFML 3.0.0
-Use the MinGW-w64 version
-Update CMakeLists.txt with the correct SFML_DIR path
+- Use the MinGW-w64 version
+- Update CMakeLists.txt with the correct SFML_DIR path
 3. Open in CLion or build via CMake:
-mkdir build && cd build
-cmake ..
-make
+- mkdir build && cd build
+- cmake ..
+- make
 4. Make sure arial.ttf is in the root directory (for text rendering)
 
 When running the program:
