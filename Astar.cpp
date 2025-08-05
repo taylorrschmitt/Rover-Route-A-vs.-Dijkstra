@@ -50,7 +50,7 @@ vector<pair<int,int>> Astar::algorithm(terrain &graph, pair<int,int> start, pair
     //algorithm starts
     int begin = graph.getIndexCoordinate(start);
     int end = graph.getIndexCoordinate(dest);
-    cout << "A* start index: " << begin << ", end index: " << end << endl;
+    //cout << "A* start index: " << begin << ", end index: " << end << endl;
 
     //assigning node data and pushing it to the priority queue
     nodeInfo[begin] = {0.0f, 0.0f, predictHeuristic(start, dest), -1};
